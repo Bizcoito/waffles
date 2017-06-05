@@ -43,6 +43,7 @@ GEM
     builder (3.2.3)
     byebug (9.0.6)
     concurrent-ruby (1.0.5)
+    database_cleaner (1.6.1)
     diff-lcs (1.2.5)
     erubis (2.7.0)
     ffi (1.9.18)
@@ -144,6 +145,7 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
+  database_cleaner (~> 1.5, >= 1.5.3)
   listen (~> 3.0.5)
   mongoid (~> 6.1.0)
   pg (~> 0.18)
@@ -155,4 +157,4 @@ DEPENDENCIES
   tzinfo-data
 
 BUNDLED WITH
-   1.13.6
+   1.14.6
