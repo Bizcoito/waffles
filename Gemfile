@@ -30,6 +30,8 @@ gem 'mongoid', '~> 6.1.0'
 group :test do
   gem 'database_cleaner', '~> 1.5', '>= 1.5.3'
   gem 'rspec-rails', '~> 3.5'
+  gem 'simplecov', require: false
+  gem 'codeclimate-test-reporter', '~> 1.0.0'
 end
 
 group :development, :test do

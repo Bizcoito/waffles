@@ -42,14 +42,18 @@ GEM
     bson (4.2.1)
     builder (3.2.3)
     byebug (9.0.6)
+    codeclimate-test-reporter (1.0.8)
+      simplecov (<= 0.13)
     concurrent-ruby (1.0.5)
     database_cleaner (1.6.1)
     diff-lcs (1.2.5)
+    docile (1.1.5)
     erubis (2.7.0)
     ffi (1.9.18)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
     i18n (0.8.4)
+    json (2.1.0)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -120,6 +124,11 @@ GEM
       rspec-mocks (~> 3.5.0)
       rspec-support (~> 3.5.0)
     rspec-support (3.5.0)
+    simplecov (0.13.0)
+      docile (~> 1.1.0)
+      json (>= 1.8, < 3)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.1)
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -145,6 +154,7 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
+  codeclimate-test-reporter (~> 1.0.0)
   database_cleaner (~> 1.5, >= 1.5.3)
   listen (~> 3.0.5)
   mongoid (~> 6.1.0)
@@ -152,9 +162,10 @@ DEPENDENCIES
   puma (~> 3.0)
   rails (~> 5.0.3)
   rspec-rails (~> 3.5)
+  simplecov
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
 
 BUNDLED WITH
-   1.14.6
+   1.15.1
