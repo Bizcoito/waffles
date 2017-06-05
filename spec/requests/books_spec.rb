@@ -17,4 +17,64 @@ RSpec.describe 'Books API', type: :request do
       expect(json.first.to_json).to eq(@book.to_json)
     end
   end
+
+  describe 'POST /books' do
+    let(:attributes) do
+      { 
+	book: {
+	  name: 'xunda',
+	  author: 'xunder',
+	  thumbnail: 'http://pudim.com.br/pudim.jpg'
+	}
+      }
+    end
+
+    it 'returns success' do
+      post '/books', params: attributes
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'creates a new books' do
+      expect { post '/books', params: attributes }.to change { Book.count }.by(1)
+    end
+
+    context 'when the request is not valid' do
+      context 'when there is no book information' do
+	let(:attributes) do
+	  {
+	    name: 'xunda'
+	  }
+	end
+	
+	it 'returns unprocessable entity', :aggregate_failures do
+	  post '/books', params: attributes
+	  expect(response).to have_http_status(:unprocessable_entity)
+	  expect(response.body).to include('param is missing')
+	end
+
+	it 'does not create a new book' do
+	  expect { post '/books', params: attributes }.not_to
+						       change { Book.count }
+	end
+      end
+
+      context 'when there is an unpermitted params' do
+	let(:attributes) do
+	  {
+	    book: {
+	      xunda: 'xunder',
+	      name: 'pipoca',
+	      author: 'Ana maria braga',
+	      thumbnail: 'louro_jose.png'
+	    }
+	  }
+	end
+
+	it 'returns unprocessable entity' do
+	  post '/books', params: attributes
+	  expect(response).to have_http_status(:unprocessable_entity)
+	end
+      end
+    end
+  end
 end
