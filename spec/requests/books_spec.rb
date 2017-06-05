@@ -20,12 +20,12 @@ RSpec.describe 'Books API', type: :request do
 
   describe 'POST /books' do
     let(:attributes) do
-      { 
-	book: {
-	  name: 'xunda',
-	  author: 'xunder',
-	  thumbnail: 'http://pudim.com.br/pudim.jpg'
-	}
+      {
+        book: {
+          name: 'xunda',
+          author: 'xunder',
+          thumbnail: 'http://pudim.com.br/pudim.jpg'
+        }
       }
     end
 
@@ -40,40 +40,17 @@ RSpec.describe 'Books API', type: :request do
 
     context 'when the request is not valid' do
       context 'when there is no book information' do
-	let(:attributes) do
-	  {
-	    name: 'xunda'
-	  }
-	end
-	
-	it 'returns unprocessable entity', :aggregate_failures do
-	  post '/books', params: attributes
-	  expect(response).to have_http_status(:unprocessable_entity)
-	  expect(response.body).to include('param is missing')
-	end
+        let(:attributes) { { name: 'xunda' } }
 
-	it 'does not create a new book' do
-	  expect { post '/books', params: attributes }.not_to
-						       change { Book.count }
-	end
-      end
+        it 'returns unprocessable entity', :aggregate_failures do
+          post '/books', params: attributes
+          expect(response).to have_http_status(:unprocessable_entity)
+          expect(response.body).to include('param is missing')
+        end
 
-      context 'when there is an unpermitted params' do
-	let(:attributes) do
-	  {
-	    book: {
-	      xunda: 'xunder',
-	      name: 'pipoca',
-	      author: 'Ana maria braga',
-	      thumbnail: 'louro_jose.png'
-	    }
-	  }
-	end
-
-	it 'returns unprocessable entity' do
-	  post '/books', params: attributes
-	  expect(response).to have_http_status(:unprocessable_entity)
-	end
+        it 'does not create a new book' do
+          expect { post '/books', params: attributes }.not_to change { Book.count }
+        end
       end
     end
   end
