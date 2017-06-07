@@ -44,12 +44,56 @@ RSpec.describe 'Books API', type: :request do
 
         it 'returns unprocessable entity', :aggregate_failures do
           post '/books', params: attributes
-          expect(response).to have_http_status(:unprocessable_entity)
+          expect(response).to have_http_status(:bad_request)
           expect(response.body).to include('param is missing')
         end
 
         it 'does not create a new book' do
           expect { post '/books', params: attributes }.not_to change { Book.count }
+        end
+      end
+
+      context 'when some param is missing' do
+        let(:attributes) do
+          {
+            book: {
+              author: 'xunder',
+              thumbnail: 'http://pudim.com.br/pudim.jpg'
+            }
+          }
+        end
+
+        it 'returns unprocessable entity' do
+          post '/books', params: attributes
+
+          expect(response).to have_http_status(:unprocessable_entity)
+        end
+
+        it 'returns an error message' do
+          post '/books', params: attributes
+
+          expect(response.body).to include("Name can't be blank")
+        end
+
+        it 'does not create a new book' do
+          expect { post '/books', params: attributes }.not_to change { Book.count }
+        end
+      end
+
+      context 'when more than one param is missing' do
+        let(:attributes) do
+          {
+            book: {
+              thumbnail: 'http://pudim.com.br/pudim.jpg'
+            }
+          }
+        end
+
+        before { post '/books', params: attributes }
+
+        it 'returns an error message for each missing param', :aggregate_failures do
+          expect(response.body).to include("Name can't be blank")
+          expect(response.body).to include("Author can't be blank")
         end
       end
     end
