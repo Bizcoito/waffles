@@ -1,0 +1,17 @@
+version: '2'
+services:
+  book_api:
+    image: marcelinol/waffle
+    entrypoint: /usr/src/bizcoito/entrypoint.sh
+    volumes:
+      - .:/usr/src/bizcoito
+    depends_on:
+      - mongodb
+    ports:
+      - "3000:3000"
+  mongodb:
+    image: marcelinol/mongodb
+    volumes:
+      - mongo:/data/db
+volumes:
+  mongo:
