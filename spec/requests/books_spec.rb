@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Books API', type: :request do
   describe 'GET /books' do
     before do
-      @book = Book.create(name: 'xunda', author: 'mironga', thumbnail: 'http://pudim.com.br/pudim.jpg')
+      @book = create(:book)
       get '/books'
     end
 
