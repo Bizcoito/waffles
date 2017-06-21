@@ -140,7 +140,7 @@ test:
     default:
       database: waffles_test
       hosts:
-        - localhost:27017
+        - mongodb:27017
       options:
         read:
           mode: :primary
