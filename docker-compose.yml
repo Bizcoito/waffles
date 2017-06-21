@@ -13,5 +13,7 @@ services:
     image: marcelinol/mongodb
     volumes:
       - mongo:/data/db
+    expose:
+      - "27017"
 volumes:
   mongo:
