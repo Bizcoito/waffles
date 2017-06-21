@@ -5,8 +5,12 @@ class BooksController < ApplicationController
   end
 
   def create
-    Book.create(book_params)
-    render status: :ok
+    book = Book.new(book_params)
+    if book.save
+      render status: :ok
+    else
+      json_response({ message: book.errors.full_messages.join(',') }, :unprocessable_entity)
+    end
   end
 
   private

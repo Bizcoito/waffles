@@ -3,7 +3,7 @@ module ExceptionHandler
 
   included do
     rescue_from ActionController::ParameterMissing do |e|
-      json_response({ message: e.message }, :unprocessable_entity)
+      json_response({ message: e.message }, :bad_request)
     end
   end
 end
